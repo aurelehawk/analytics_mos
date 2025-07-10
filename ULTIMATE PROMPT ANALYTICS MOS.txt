@@ -1,0 +1,155 @@
+Tu es un jeune expert Data et IA
+Tu dois refaire une application avec plus de professionnalisme.
+Le but de l'application est de d'ingéer deux fichiers Excel, d'en faire deux DataFrame (df_performance et df_interview),  puis de les nettoyer.
+Afin de faire un merge de df_performance et df_interview qui va produire le DataFrame principal (df_main), tu dois procéder au néttoyage des colonnes Siret de chacun de ces DataFrame
+	Les noms des champs de ces siret dans chacun de ces DataFrame est df_interview[SIRET] et df_performance[No Siret]
+	Le nettoyage des siret : Ils doivent tous avoir 13 caractères et ceux qui ont moinss de 13 caractère, tu rajouteras les 0 au debut pour atteindre cette longueur.
+	si df_interview[SIRET] est vide, prendre le df_performance[No Siret] qui va matcher entre df_performance[code agence] et df_interview[CODE_AGENC].
+tu vas donc faire DataFrame principal qui va lier df_performance et df_interview à partir de la colonne des SIRET (No Siret dans df_performance et SIRET dans df_interview)
+
+Les donnnée du DataFrame principal :
+
+Le DataFrame dera constitué de :
+	Coté Fichier Performances:
+		Année,
+		Mois,
+		type entité,
+		Code DR,
+		DR,
+		code agence,
+		agence,
+		Ouvert / Fermé,
+		No Siret,
+		raison sociale,
+		Ca Cum A,
+		Ca Cum A-1,
+		var ca cum,
+		Ca Mois M,
+		Ca Mois M-1,
+		var ca mois,
+		Ca Cum A SIRET,
+		Ca Cum A-1 SIRET,
+		var ca cum SIRET,
+		ca mois A SIRET,
+		ca mois A-1 SIRET,
+		var ca mois SIRET
+	Coté Fichier interview (NPS):
+		Campagne d'appels,
+		CODE_AGENC,
+		"Satisf. Globale",
+		Pouvez-vous me dire pourquoi vous donnez cette note de satisfaction ? à renomer "Raison note satisfaction" si la cellule donnée est vide mettre "Pas de réponse"
+		Sentiment Raison note satisfaction : Faire une analyse du sentiment détecté dans "Raison note satisfaction",
+		Score raison note de satisfaction, y mettre le poids du sentiment détecté entre 0 et 10,
+		Quelle est la société de travail temporaire à laquelle vous faites appel le plus souvent (en dehors de Manpower) ? à renomer "Concurrent",
+		Q5 - Amabilité et disponibilité de votre partenaire Manpower à renomer Q5 - Amabilité et disponibilit,
+		Q6 - Connaissance de votre entreprise, vos besoins, vos attentes, vos objectifs à renomer Q6 - Connaissance entreprise et objectifs,
+		Q7 - Contribution à votre performance et à l’atteinte de vos objectifs à renomer Q7 - Contribution objectifs et performances,
+		Q8 - Diriez-vous que votre collaboration avec MANPOWER est : à renomer	Q8 - Qualité de collaboration : si la cellule donnée est vide mettre "Pas de réponse"
+		Sentiment Q8 : faire une analyse du sentiment détecté dans Q8 - Qualité de collaboration,
+		Score Sentiment Q8  y mettre le poids du sentiment détecté dans Sentiment Q8 entre 0 et 10,
+		Q9 - Conformité du nombre de candidatures proposées par rapport à vos attentes à renomer Q9 - Conformité nombre de candidatures,
+		Q10 - Qualité et pertinence des profils proposés à renomer Q10 - Qualité et pertinence profils,
+		Q11 - Diriez-vous que l’adéquation entre les candidats proposés par MANPOWER et votre demande est : à renomer Q11 - Qualité adéquation candidats : si la cellule donnée est vide mettre "Pas de réponse" 
+		Sentiment Q11 : Faire une analyse du sentiment détecté dans Q11 - Qualité adéquation candidats, si la cellule donnée est vide mettre "Pas de réponse",
+		Score Sentiment Q11 : y mettre le poids du sentiment détecté dans Sentiment Q11 entre 0 et 10,
+		Q12 - Réactivité pour répondre à vos besoins, à renomer Q12 - Réactivité,
+		Q13 - Efficacité à agir en cas de dysfonctionnements ou de réclamations à renomer Q13 - Efficacité,
+		Q14 - Diriez-vous que la réactivité de MANPOWER est : à renomer Q14 - Quailté réactivité : si la cellule donnée est vide mettre "Pas de réponse"
+		Sentiment Q14 : Faire une analyse du sentiment détecté dans Q14 - Quailté réactivité,
+		Score Sentiment Q14 : y mettre le poids du sentiment détecté dans Sentiment Q14 entren 0 et 10,
+		Q15 - Production des contrats, au suivi de leurs prestations, et leur gestion de fins de contrats à renomer Q15 - Production et suivi des contrats
+		Q16 - Prestation administrative, c’est-à-dire les relevés d’activités et la facturation à renomer Q16 - Prestation administrative,
+		Q17 - Diriez-vous que le suivi de mission et la gestion administrative de MANPOWER est : à renomer Q17 - Qualité presta administrative
+		Sentiment Q17 faire une analyse du sentiment détecté dans Q17 - Qualité presta administrative,
+		Score Sentiment Q17 y mettre le poids du sentiment détecté dans Sentiment Q17 entren 0 et 10,
+		Q18 - Proactivité dans la poposition de candidatures spontanées à renomer Q18 - Proactivité,
+		Q19 - Qualité des informations fournies sur la réglementation du travail temporaire à renomer Q19 - Qualité informations règlementation TT
+		Q20 - Actions en matière de prévention sécurité au travail à renomer Q20 - Actions prévention sécurité
+		Q21 - Diriez-vous que l’expertise de MANPOWER est : à renomer Q21 - Qualité expertise
+		Sentiment Q21 faire une analyse du sentiment détecté dans Q21 - Qualité expertise,
+		Score Sentiment Q21 y mettre le poids du sentiment détecté dans Sentiment Q21 entre 0 et 10,
+		Q21bis - Sur une échelle de 0 à 10, recommanderiez-vous [CONCURRENT PRINCIPAL CITE] pour du TRAVAIL TEMPORAIRE ? à renomer Note Recommandation concurrent :
+		Recommandation à renomer Note Recommandation Manpower
+		Pouvez-vous me dire pourquoi vous donner cette note de recommandation?  à renomer Raison recommandation Manpower,
+		Sentiment raison recommandation Manpower : faire une analyse du sentiment détecté dans Raison recommandation Manpower,
+		Score sentiment recommandation Manpower : y mettre le poids du sentiment détecté dans Sentiment raison recommandation Manpower entre 0 et 10,
+		
+		
+		
+		Tous les sentiments et leurs poids seront organisés ainsi que suit :
+			________________________________________________________________________________
+		   | Libellé	   |Intervalle Score	|Description								|
+		   |_______________|____________________|___________________________________________|
+		   ||very_negative |[0 ; 2]             |Opinion extrêmement défavorable			|
+		   ||negative	   |]2 ; 5]	    	    |Opinion défavorable						|	
+		   ||neutral	   |]5 ; 7]	    		|Opinion mitigée ou indifférente			|
+		   ||positive	   |]7 ; 8]	    		|Opinion favorable							|
+		   ||very_positive |]8 ; 10]			|Opinion très favorable / enthousiaste		|
+		   |_______________|____________________|___________________________________________|
+		   
+Notre workspace est dans le répertoire : C:\Users\FR63154\Documents\analytics_mos_v2>
+Et la structure du dossier est : 
+
+|-/
+|-- backend  #
+|-- data/  # notre data a traiter avec l
+|-- frontend # 
+
+Details pour le backend REST API structure modulaire:
+
+|- backend/
+|-- src/ # 
+|--- api/    # notre api avec ses endpoints
+|---- models/
+|---- controllers  # dépend des services
+|---- services/   # depend des modules
+|---- routes/    # définit les routes , depend des controllers 
+|---- __init__.py
+|--- configs/  # nos configurations
+|--- utils/  # les utilitaires. eg: les logs
+|--- core/  # on initialise  le server avec flask
+|--- modules/   # les differents modules qui feront le traitement
+|---- ai/       # poue les traitement
+|----- __init__.py
+|---- __init__.py # on importe tout
+|-- venv  # environement virtuel de python 
+|-- main.py  # bootstrap du server sur un port 4000
+|-- requirements.txt
+|-- .env
+
+
+Details pour le frontend structure modulaire:
+|- frontend/
+|-- data/  # nos data a traiter avec l'IA 
+|-- src/ # 
+|--- app/    # notre application
+|---- pages/  # nos differentes pages et dependra des services
+|----- etc.  # on implemente nos pages avec streamlit 
+|--- configs/  # nos configurations
+|--- core/  # on initialise  le client avec streamlit
+|--- services/   # son role est de faires les requêtes http au server backend pour le frontend que les page utiliseraont
+|--- utils/  # les utilitaires. 
+|---- __init__.py # on importe tout
+|-- venv  # environement virtuel de python 
+|-- main.py  # bootstrap le client sur un port 8081
+|-- requirements.txt
+|-- .env
+
+Details pour le data
+|- data/
+|-- input/ # nos deux fichiers
+|-- output/ # Le répertoire des sorties
+
+Pour notre prototype, on va utiliser sqlite comme base de données pour nos modèles
+
+Comme stratégies de code:
+- avoir la structure modulaire
+- clean code ( propre, lisible, avec commentaire pour les dévelopeur)
+- doit être conforme ave le principe SOLID
+- l'application doit avoir deux mode, le mode developpeur et le mode production
+- dans le mode dévelopement on doit avoir beaucoup de logs(logger) qui permettront au développeur de recuperer les erreurs et aussi de savoir la cause principale
+		   
+
+		   
+		   
+

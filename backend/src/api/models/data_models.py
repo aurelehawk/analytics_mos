@@ -1,0 +1,83 @@
+from src.core.db import db
+from sqlalchemy import Column, Integer, String, Float
+
+class MainData(db.Model):
+    __tablename__ = 'main_data'
+    id = Column(Integer, primary_key=True)
+    annee = Column('Année', Integer)
+    mois = Column('Mois', Integer)
+    type_entite = Column('type entité', String)
+    code_dr = Column('Code DR', String)
+    dr = Column('DR', String)
+    code_agence = Column('code agence', String)
+    agence = Column('agence', String)
+    ouvert_ferme = Column('Ouvert / Fermé', String)
+    no_siret = Column('No Siret', String(14))
+    raison_sociale = Column('raison sociale', String)
+    ca_cum_a = Column('Ca Cum A', Float)
+    ca_cum_a_1 = Column('Ca Cum A-1', Float)
+    var_ca_cum = Column('var ca cum', Float)
+    ca_mois_m = Column('Ca Mois M', Float)
+    ca_mois_m_1 = Column('Ca Mois M-1', Float)
+    var_ca_mois = Column('var ca mois', Float)
+    ca_cum_a_siret = Column('Ca Cum A SIRET', Float)
+    ca_cum_a_1_siret = Column('Ca Cum A-1 SIRET', Float)
+    var_ca_cum_siret = Column('var ca cum SIRET', Float)
+    ca_mois_a_siret = Column('ca mois A SIRET', Float)
+    ca_mois_a_1_siret = Column('ca mois A-1 SIRET', Float)
+    var_ca_mois_siret = Column('var ca mois SIRET', Float)
+    # Colonnes ETP ajoutées
+    etp_cum_a = Column('ETP Cum A', Float)
+    etp_cum_a_1 = Column('ETP Cum A-1', Float)
+    var_etp_cum = Column('var ETP cum', Float)
+    siret_agence = Column('siret_agence', String)  # Clé de fusion importante
+    campagne_appels = Column("Campagne d'appels", String)
+    code_agenc = Column('CODE_AGENC', String)
+    siret_interview = Column('SIRET', String(14))  # SIRET du fichier interview
+    satisf_globale = Column('Satisf. Globale', String)
+    raison_note_satisfaction = Column('Raison note satisfaction', String)
+    sentiment_raison_note_satisfaction = Column('Sentiment Raison note satisfaction', String)
+    score_raison_note_satisfaction = Column('Score raison note de satisfaction', Integer)
+    concurrent = Column('Concurrent', String)
+    q5_amabilite_disponibilite = Column('Q5 - Amabilité et disponibilit', String)
+    q6_connaissance_entreprise = Column('Q6 - Connaissance entreprise et objectifs', String)
+    q7_contribution_objectifs = Column('Q7 - Contribution objectifs et performances', String)
+    q8_qualite_collaboration = Column('Q8 - Qualité de collaboration', String)
+    sentiment_q8_qualite_collaboration = Column('Sentiment Q8 - Qualité de collaboration', String)
+    score_q8_qualite_collaboration = Column('Score Q8 - Qualité de collaboration', Integer)
+    q9_conformite_candidatures = Column('Q9 - Conformité nombre de candidatures', String)
+    q10_qualite_pertinence_profils = Column('Q10 - Qualité et pertinence profils', String)
+    q11_qualite_adequation_candidats = Column('Q11 - Qualité adéquation candidats', String)
+    sentiment_q11_qualite_adequation_candidats = Column('Sentiment Q11 - Qualité adéquation candidats', String)
+    score_q11_qualite_adequation_candidats = Column('Score Q11 - Qualité adéquation candidats', Integer)
+    q12_reactivite = Column('Q12 - Réactivité', String)
+    q13_efficacite = Column('Q13 - Efficacité', String)
+    q14_qualite_reactivite = Column('Q14 - Quailté réactivité', String)
+    sentiment_q14_qualite_reactivite = Column('Sentiment Q14 - Quailté réactivité', String)
+    score_q14_qualite_reactivite = Column('Score Q14 - Quailté réactivité', Integer)
+    q15_production_suivi_contrats = Column('Q15 - Production et suivi des contrats', String)
+    q16_prestation_administrative = Column('Q16 - Prestation administrative', String)
+    q17_qualite_presta_administrative = Column('Q17 - Qualité presta administrative', String)
+    sentiment_q17_qualite_presta_administrative = Column('Sentiment Q17 - Qualité presta administrative', String)
+    score_q17_qualite_presta_administrative = Column('Score Q17 - Qualité presta administrative', Integer)
+    q18_proactivite = Column('Q18 - Proactivité', String)
+    q19_qualite_infos_reglementation = Column('Q19 - Qualité informations règlementation TT', String)
+    q20_actions_prevention_securite = Column('Q20 - Actions prévention sécurité', String)
+    q21_qualite_expertise = Column('Q21 - Qualité expertise', String)
+    sentiment_q21_qualite_expertise = Column('Sentiment Q21 - Qualité expertise', String)
+    score_q21_qualite_expertise = Column('Score Q21 - Qualité expertise', Integer)
+    note_recommandation_concurrent = Column('Note Recommandation concurrent', Integer)
+    note_recommandation_manpower = Column('Note Recommandation Manpower', Integer)
+    raison_recommandation_manpower = Column('Raison recommandation Manpower', String)
+    # Colonne sentiment avec le bon nom (renommée)
+    sentiment_raison_de_recommandation_manpower = Column('Sentiment Raison de recommandation Manpower', String)
+    score_raison_de_recommandation_manpower = Column('Score Raison de recommandation Manpower', Integer)
+    # ... autres champs si besoin ... 
+
+    @property
+    def no_siret_13(self):
+        """Retourne le SIRET sur 13 caractères, complété par des zéros à gauche si besoin."""
+        if self.no_siret:
+            s = str(self.no_siret).strip()
+            return s.zfill(13)
+        return '0'*13
