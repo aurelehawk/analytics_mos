@@ -5,12 +5,11 @@
 Analytics MOS est une plateforme d'analyse avancée - **CORRECTION_COLONNES_DUPLICATAS.md, CORRECTION_FORMAT_DECIMAL.md** : Documentation sur les corrections de données.
 - **NOTES_RECOMMANDATION_CLASSIFICATION.md** : Documentation technique complète du pipeline des colonnes de recommandation.
 - **NOTE_DF_MERGE.md** : Documentation détaillée du cycle de vie du DataFrame de fusion df_merge.
-- **ULTIMATE PROMPT ANALYTICS MOS.txt** : Prompt de référence pour l'analyse de sentiment et la segmentation.s données issues du suivi de la satisfaction et de la performance des agences Manpower (MOS). Elle permet de fusionner, nettoyer, enrichir et visualiser les données issues de plusieurs sources (performance, interviews clients, etc.), avec une interface utilisateur moderne (Streamlit) et des exports adaptés (CSV, Excel).
+  
+- **MODÈLES IA AVANCÉS** : Le système intègre des modèles d'IA avancés pour l'analyse automatique de sentiment et propose une segmentation intelligente des agences selon leur performance et satisfaction client.
 
-Le système intègre des modèles d'IA avancés pour l'analyse automatique de sentiment et propose une segmentation intelligente des agences selon leur performance et satisfaction client.
-
-## Structure du projet
-
+  
+- ## Structure du projet
 ```
 analytics_mos_v2/
 │
@@ -59,7 +58,7 @@ analytics_mos_v2/
 ├── CORRECTION_FORMAT_DECIMAL.md        # Notes sur le format des décimales
 ├── NOTES_RECOMMANDATION_CLASSIFICATION.md  # Documentation complète des colonnes de recommandation
 ├── NOTE_DF_MERGE.md                    # Documentation du cycle de vie du DataFrame df_merge
-├── ULTIMATE PROMPT ANALYTICS MOS.txt   # Prompt de référence pour l'analyse
+
 ├── NATIONAL MOS.xlsx                   # Fichier Excel de référence nationale
 ├── Suivi MOS_2025 03 TEST.xlsx         # Fichier Excel de suivi
 
